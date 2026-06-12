@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hrishabh Kumar — ECE Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0A0F1E;
+    --navy2: #0F1628;
+    --card: #131C30;
+    --card2: #1A2540;
+    --cyan: #00D4FF;
+    --cyan2: #00AACF;
+    --cyan-dim: rgba(0,212,255,0.12);
+    --cyan-glow: rgba(0,212,255,0.25);
+    --white: #E8EDF5;
+    --muted: #8892A4;
+    --border: rgba(0,212,255,0.15);
+    --border2: rgba(255,255,255,0.06);
+    --green: #00FF9D;
+    --amber: #FFB347;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 64px;
+    background: rgba(10,15,30,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 1.1rem;
+    color: var(--cyan);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); font-size: 0.875rem; text-decoration: none;
+    font-family: 'Inter', sans-serif; font-weight: 500;
+    transition: color 0.2s;
+    letter-spacing: 0.04em;
+  }
+  .nav-links a:hover { color: var(--cyan); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 80px 5% 60px;
+    position: relative; overflow: hidden;
+  }
+  #circuit-canvas {
+    position: absolute; inset: 0;
+    opacity: 0.18; pointer-events: none;
+  }
+  .hero-inner {
+    position: relative; z-index: 2;
+    max-width: 780px;
+  }
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem; color: var(--cyan);
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-bottom: 1.4rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block;
+    width: 32px; height: 1px; background: var(--cyan);
+  }
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    font-weight: 700; line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.2rem;
+  }
+  h1 span { color: var(--cyan); }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--muted);
+    max-width: 540px;
+    margin-bottom: 2.4rem;
+    line-height: 1.75;
+  }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+    margin-bottom: 2.4rem;
+  }
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.1em;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--muted);
+    background: var(--cyan-dim);
+    white-space: nowrap;
+  }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.6rem;
+    border-radius: 6px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600; font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer; border: none;
+  }
+  .btn-primary {
+    background: var(--cyan); color: var(--navy);
+  }
+  .btn-primary:hover { background: #33DCFF; transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent; color: var(--white);
+    border: 1px solid var(--border2);
+  }
+  .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 5%; }
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem; color: var(--cyan);
+    letter-spacing: 0.2em; text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-label::before {
+    content: ''; display: block;
+    width: 24px; height: 1px; background: var(--cyan);
+  }
+  h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700; line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+  }
+  h2 span { color: var(--cyan); }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--navy2); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-card:hover { border-color: var(--border); transform: translateY(-2px); }
+  .skill-card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600; font-size: 0.9rem;
+    color: var(--cyan); margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .skill-card-title svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .skill-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .chip {
+    font-size: 0.72rem; padding: 0.25rem 0.6rem;
+    background: var(--card2); border-radius: 4px;
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* ── EXPERIENCE ── */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute;
+    left: 0; top: 8px; bottom: 8px; width: 1px;
+    background: linear-gradient(to bottom, var(--cyan), transparent);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border2);
+  }
+  .timeline-item:last-child { border-bottom: none; margin-bottom: 0; }
+  .timeline-dot {
+    position: absolute;
+    left: -2.4rem; top: 6px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 12px var(--cyan-glow);
+  }
+  .timeline-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem; color: var(--cyan);
+    letter-spacing: 0.08em; margin-bottom: 0.4rem;
+  }
+  .timeline-role {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600; font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+  }
+  .timeline-company {
+    font-size: 0.875rem; color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+  .timeline-desc {
+    font-size: 0.9rem; color: var(--muted);
+    line-height: 1.7; max-width: 640px;
+  }
+  .timeline-desc li { margin-bottom: 0.3rem; }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--navy2); }
+  .tab-bar {
+    display: flex; gap: 0.5rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border2);
+    padding-bottom: 0;
+  }
+  .tab-btn {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600; font-size: 0.875rem;
+    padding: 0.6rem 1.2rem;
+    background: none; border: none;
+    color: var(--muted); cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .tab-btn.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+  .tab-btn:hover { color: var(--white); }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border2);
+    border-radius: 12px;
+    padding: 1.75rem;
+    display: flex; flex-direction: column;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: default;
+  }
+  .project-card:hover { border-color: var(--cyan); transform: translateY(-3px); }
+  .project-icon {
+    width: 42px; height: 42px;
+    background: var(--cyan-dim);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+  .project-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600; font-size: 1rem;
+    margin-bottom: 0.6rem; line-height: 1.3;
+  }
+  .project-desc {
+    font-size: 0.875rem; color: var(--muted);
+    line-height: 1.65; flex: 1;
+    margin-bottom: 1.25rem;
+  }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .stack-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.67rem; letter-spacing: 0.06em;
+    padding: 0.2rem 0.55rem;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    color: var(--cyan);
+  }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── CERTIFICATIONS ── */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .cert-item {
+    background: var(--card);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    padding: 1.1rem 1.25rem;
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    transition: border-color 0.2s;
+  }
+  .cert-item:hover { border-color: var(--border); }
+  .cert-icon {
+    width: 32px; height: 32px; flex-shrink: 0;
+    background: var(--cyan-dim);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    margin-top: 0.1rem;
+  }
+  .cert-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500; font-size: 0.875rem;
+    line-height: 1.35; margin-bottom: 0.25rem;
+  }
+  .cert-issuer {
+    font-size: 0.75rem; color: var(--muted);
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* ── CONTACT ── */
+  #contact { text-align: center; }
+  .contact-inner {
+    max-width: 560px; margin: 0 auto;
+  }
+  .contact-links {
+    display: flex; flex-wrap: wrap;
+    justify-content: center; gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.4rem;
+    background: var(--card);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .contact-link:hover { border-color: var(--cyan); color: var(--cyan); }
+  .contact-link svg { width: 16px; height: 16px; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem 5%;
+    border-top: 1px solid var(--border2);
+    font-size: 0.8rem; color: var(--muted);
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 640px) {
+    nav { padding: 0 4%; }
+    .nav-links { gap: 1.2rem; }
+    .nav-links a { font-size: 0.8rem; }
+    section { padding: 70px 4%; }
+    .skills-grid, .projects-grid, .certs-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    #circuit-canvas { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">HK/</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="circuit-canvas"></canvas>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Electronics &amp; Communication Engineer</div>
+    <h1>Hrishabh<br><span>Kumar</span></h1>
+    <p class="hero-sub">
+      Manufacturing Associate at Micron Technology. Building things at the intersection of hardware, embedded systems, VLSI, and AI automation — from PCB traces to Python scripts.
+    </p>
+    <div class="hero-tags">
+      <span class="tag">Semiconductor Mfg</span>
+      <span class="tag">Embedded Systems</span>
+      <span class="tag">PCB Design</span>
+      <span class="tag">VLSI / RTL</span>
+      <span class="tag">ESP32 / STM32</span>
+      <span class="tag">AI Automation</span>
+    </div>
+    <div class="hero-ctas">
+      <a href="mailto:krhrishabh14@gmail.com" class="btn btn-primary">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Get in touch
+      </a>
+      <a href="https://linktr.ee/hrishabh2028ece" target="_blank" class="btn btn-ghost">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        All links
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">What I work with</div>
+  <h2>Technical <span>Skills</span></h2>
+  <div class="skills-grid">
+
+    <div class="skill-card reveal">
+      <div class="skill-card-title">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M8 12h8M12 8v8"/></svg>
+        Hardware &amp; PCB Design
+      </div>
+      <div class="skill-chips">
+        <span class="chip">Altium Designer</span><span class="chip">EagleCAD</span><span class="chip">KiCAD</span>
+        <span class="chip">PCB Layout</span><span class="chip">Schematic Design</span><span class="chip">BOM Creation</span>
+        <span class="chip">RF &amp; Antenna</span><span class="chip">Oscilloscope</span><span class="chip">Logic Analyzer</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-card-title">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+        Embedded Systems
+      </div>
+      <div class="skill-chips">
+        <span class="chip">Arduino</span><span class="chip">ESP32</span><span class="chip">STM32</span>
+        <span class="chip">Raspberry Pi</span><span class="chip">ARM Cortex</span><span class="chip">FPGA</span>
+        <span class="chip">Verilog</span><span class="chip">I2C / SPI / UART</span><span class="chip">CAN / USB</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-card-title">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/></svg>
+        VLSI &amp; Chip Design
+      </div>
+      <div class="skill-chips">
+        <span class="chip">RTL Design</span><span class="chip">VLSI Design Flow</span><span class="chip">RTL to GDS</span>
+        <span class="chip">Timing Analysis</span><span class="chip">Physical Design</span><span class="chip">Analog IC Design</span>
+        <span class="chip">NIELIT Chip Design</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-card-title">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="2" x2="9" y2="4"/><line x1="15" y1="2" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="22"/><line x1="15" y1="20" x2="15" y2="22"/><line x1="20" y1="9" x2="22" y2="9"/><line x1="20" y1="14" x2="22" y2="14"/><line x1="2" y1="9" x2="4" y2="9"/><line x1="2" y1="14" x2="4" y2="14"/></svg>
+        Semiconductor Mfg
+      </div>
+      <div class="skill-chips">
+        <span class="chip">ATMP Processes</span><span class="chip">6S / Kaizen</span><span class="chip">SPC / SOP</span>
+        <span class="chip">FMEA</span><span class="chip">Root Cause Analysis</span><span class="chip">ESD Control</span>
+        <span class="chip">QA / QC</span><span class="chip">Equipment Tracking</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-card-title">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Software &amp; AI
+      </div>
+      <div class="skill-chips">
+        <span class="chip">Python</span><span class="chip">C / C++</span><span class="chip">JavaScript</span>
+        <span class="chip">React.js</span><span class="chip">MATLAB</span><span class="chip">Generative AI</span>
+        <span class="chip">Prompt Engineering</span><span class="chip">Workflow Automation</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-card-title">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 6s4-2 11-2 11 2 11 2"/><path d="M1 18s4 2 11 2 11-2 11-2"/><line x1="1" y1="6" x2="1" y2="18"/><line x1="23" y1="6" x2="23" y2="18"/><path d="M8 12 Q12 8 16 12 Q12 16 8 12"/></svg>
+        Wireless &amp; Networks
+      </div>
+      <div class="skill-chips">
+        <span class="chip">5G Standards</span><span class="chip">BLE / Zigbee</span><span class="chip">WiFi Modules</span>
+        <span class="chip">CISCO CCNA</span><span class="chip">GPS / GSM</span><span class="chip">PLC / SCADA / HMI</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Career</div>
+  <h2>Work <span>Experience</span></h2>
+  <div class="timeline">
+
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Apr 2026 – Present</div>
+      <div class="timeline-role">Manufacturing Associate</div>
+      <div class="timeline-company">Micron Technology · Ahmedabad, India</div>
+      <div class="timeline-desc">
+        <ul>
+          <li>Working in ATMP (Assembly, Test, Mark, Pack) semiconductor manufacturing operations within a cleanroom environment at one of the world's leading memory chip producers.</li>
+          <li>Applies SPC, 6S, FMEA, and root cause analysis methodologies to maintain process quality and equipment uptime.</li>
+          <li>Follows and contributes to SOPs covering ESD control, equipment calibration, and inventory tracking interfaces.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Aug 2025 – Mar 2026</div>
+      <div class="timeline-role">Diploma Engineer Trainee</div>
+      <div class="timeline-company">ATL Battery Technology · Rewari, India</div>
+      <div class="timeline-desc">
+        <ul>
+          <li>Gained hands-on experience in battery manufacturing processes and quality control for lithium-ion cells used in consumer and industrial applications.</li>
+          <li>Supported hardware validation, test fixture operation, and production line troubleshooting.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Jan 2025 – Mar 2025</div>
+      <div class="timeline-role">Space Technology Intern</div>
+      <div class="timeline-company">Agnirva Space / ISRO-Affiliated Program · Remote</div>
+      <div class="timeline-desc">
+        <ul>
+          <li>Contributed to space technology research and development under an ISRO-affiliated academic program, working on embedded systems and sensor integration relevant to satellite and ground systems.</li>
+          <li>Gained exposure to reliability standards and documentation practices used in aerospace hardware development.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Apr 2020 – Present</div>
+      <div class="timeline-role">Freelance Developer &amp; AI Automation Specialist</div>
+      <div class="timeline-company">Fiverr · Remote, Part-time</div>
+      <div class="timeline-desc">
+        <ul>
+          <li>Delivers AI automation solutions, custom software tools, and workflow integrations for clients across industries.</li>
+          <li>Projects span prompt engineering, generative AI assistants, Python scripting, and web development.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">What I've built</div>
+  <h2>Featured <span>Projects</span></h2>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('hardware')">Hardware &amp; Embedded</button>
+    <button class="tab-btn" onclick="switchTab('software')">Software &amp; AI</button>
+  </div>
+
+  <div id="tab-hardware" class="tab-panel active">
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <div class="project-icon">🤖</div>
+        <div class="project-name">Hand Gesture–Controlled LED System</div>
+        <div class="project-desc">Built a real-time gesture recognition pipeline using a camera and Python's MediaPipe library to track hand landmarks and map finger positions to LED patterns on an ESP32. Achieved sub-100ms latency from gesture to hardware response via serial communication.</div>
+        <div class="project-stack">
+          <span class="stack-tag">ESP32</span><span class="stack-tag">Python</span><span class="stack-tag">MediaPipe</span><span class="stack-tag">OpenCV</span><span class="stack-tag">UART</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-icon">📡</div>
+        <div class="project-name">Arduino Radar System</div>
+        <div class="project-desc">Designed and built a 180° scanning radar using an HC-SR04 ultrasonic sensor mounted on a servo motor, with a Processing IDE visualization showing real-time object detection. Accurate to within 2cm at ranges up to 4m.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Arduino UNO</span><span class="stack-tag">HC-SR04</span><span class="stack-tag">Servo Motor</span><span class="stack-tag">Processing IDE</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-icon">🏠</div>
+        <div class="project-name">Smart Home Automation System</div>
+        <div class="project-desc">Developed a home automation controller using Arduino UNO to manage lights, fans, and appliances via relay modules. Integrated IR remote and DTMF-based phone control, reducing manual switching and enabling remote operation of four independent circuits.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Arduino UNO</span><span class="stack-tag">Relay Module</span><span class="stack-tag">IR Sensor</span><span class="stack-tag">DTMF</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-icon">🪪</div>
+        <div class="project-name">RFID Attendance System</div>
+        <div class="project-desc">Built an automated attendance system using an 8051 microcontroller with an RC522 RFID reader. Each card tap logs a timestamped entry to an LCD display and serial output. Designed the full hardware schematic and PCB layout.</div>
+        <div class="project-stack">
+          <span class="stack-tag">8051 MCU</span><span class="stack-tag">RC522 RFID</span><span class="stack-tag">LCD Display</span><span class="stack-tag">PCB Design</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-icon">🤳</div>
+        <div class="project-name">Android-Controlled Surveillance Robot</div>
+        <div class="project-desc">Built a mobile surveillance robot on a Raspberry Pi platform, streaming live camera feed over WiFi to an Android app while accepting motor control commands via Bluetooth. Features obstacle detection using IR sensors for autonomous stop.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Raspberry Pi</span><span class="stack-tag">Android</span><span class="stack-tag">Bluetooth</span><span class="stack-tag">Pi Camera</span><span class="stack-tag">Python</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-icon">📶</div>
+        <div class="project-name">5G USB Portable Dongle Prototype</div>
+        <div class="project-desc">Designed and prototyped a 5G-capable USB dongle PCB, incorporating antenna matching networks, USB 3.0 interface, and RF shielding considerations. Completed schematic capture and multi-layer PCB layout in Altium Designer.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Altium Designer</span><span class="stack-tag">RF Design</span><span class="stack-tag">USB 3.0</span><span class="stack-tag">5G</span><span class="stack-tag">Multi-layer PCB</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="tab-software" class="tab-panel">
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <div class="project-icon">⚡</div>
+        <div class="project-name">AI Workflow Automation Suite</div>
+        <div class="project-desc">Developed and delivered 50+ custom AI automation solutions for Fiverr clients, including AI assistants, document processing pipelines, prompt-engineered chatbots, and API integrations. Built using Python, OpenAI APIs, and no-code tooling, consistently achieving 5-star reviews.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span><span class="stack-tag">OpenAI API</span><span class="stack-tag">Prompt Engineering</span><span class="stack-tag">REST APIs</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-icon">🔧</div>
+        <div class="project-name">Digital Electronics Trainer Kit</div>
+        <div class="project-desc">Designed and fabricated a modular electronics trainer kit for educational use, covering logic gates, flip-flops, counters, and ADC/DAC circuits. Includes a custom AC-to-DC regulated power supply (5V/12V dual output) with short-circuit protection, designed from scratch.</div>
+        <div class="project-stack">
+          <span class="stack-tag">PCB Design</span><span class="stack-tag">Analog Circuits</span><span class="stack-tag">Digital Logic</span><span class="stack-tag">Power Supply Design</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-icon">🌐</div>
+        <div class="project-name">ECE Club Technical Platform</div>
+        <div class="project-desc">As Head of Departmental Technical Team at Techtronix (IERT's ECE club), led the development of digital resources, technical workshops, and a web presence for 200+ students. Organized hands-on labs covering embedded systems, PCB design, and VLSI fundamentals.</div>
+        <div class="project-stack">
+          <span class="stack-tag">HTML / CSS / JS</span><span class="stack-tag">React.js</span><span class="stack-tag">Team Leadership</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-label">Credentials</div>
+  <h2>Certifications &amp; <span>Training</span></h2>
+  <div class="certs-grid">
+    <div class="cert-item reveal"><div class="cert-icon">🏅</div><div><div class="cert-name">VLSI Design Flow: RTL to GDS</div><div class="cert-issuer">NPTEL</div></div></div>
+    <div class="cert-item reveal"><div class="cert-icon">🏅</div><div><div class="cert-name">Digital System Design</div><div class="cert-issuer">NPTEL</div></div></div>
+    <div class="cert-item reveal"><div class="cert-icon">🏅</div><div><div class="cert-name">VLSI Physical Design with Timing Analysis</div><div class="cert-issuer">NPTEL</div></div></div>
+    <div class="cert-item reveal"><div class="cert-icon">🏅</div><div><div class="cert-name">Analog IC Design</div><div class="cert-issuer">NPTEL</div></div></div>
+    <div class="cert-item reveal"><div class="cert-icon">🎓</div><div><div class="cert-name">Chip Design Associate (O Level)</div><div class="cert-issuer">NIELIT Noida</div></div></div>
+    <div class="cert-item reveal"><div class="cert-icon">🎓</div><div><div class="cert-name">Embedded Systems for Beginners</div><div class="cert-issuer">NIELIT Calicut</div></div></div>
+    <div class="cert-item reveal"><div class="cert-icon">🌐</div><div><div class="cert-name">Cisco Certified Network Associate (CCNA)</div><div class="cert-issuer">Go Cloud Architecture</div></div></div>
+    <div class="cert-item reveal"><div class="cert-icon">🔌</div><div><div class="cert-name">PCB Basic Design Course</div><div class="cert-issuer">Altium Designer</div></div></div>
+    <div class="cert-item reveal"><div class="cert-icon">🏭</div><div><div class="cert-name">PLC, SCADA and HMI</div><div class="cert-issuer">Industrial Training</div></div></div>
+    <div class="cert-item reveal"><div class="cert-icon">💼</div><div><div class="cert-name">Software Engineering Job Simulation</div><div class="cert-issuer">JP Morgan Chase</div></div></div>
+    <div class="cert-item reveal"><div class="cert-icon">📊</div><div><div class="cert-name">Data Analytics Job Simulation</div><div class="cert-issuer">Deloitte Australia</div></div></div>
+    <div class="cert-item reveal"><div class="cert-icon">🔐</div><div><div class="cert-name">Cybersecurity Job Simulation</div><div class="cert-issuer">MasterCard</div></div></div>
+    <div class="cert-item reveal"><div class="cert-icon">🤖</div><div><div class="cert-name">Generative AI Mastermind</div><div class="cert-issuer">Outskill</div></div></div>
+    <div class="cert-item reveal"><div class="cert-icon">📈</div><div><div class="cert-name">Data Science and Analytics</div><div class="cert-issuer">HP LIFE</div></div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-label" style="justify-content:center">Let's connect</div>
+    <h2>Get in <span>Touch</span></h2>
+    <p style="color:var(--muted); font-size:1rem; max-width:420px; margin: 0 auto;">
+      Open to hardware engineering roles, embedded systems opportunities, and interesting freelance projects. Based in Ahmedabad — open to relocation.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:krhrishabh14@gmail.com" class="contact-link">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        krhrishabh14@gmail.com
+      </a>
+      <a href="tel:+919117785976" class="contact-link">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +91 9117785976
+      </a>
+      <a href="https://linktr.ee/hrishabh2028ece" target="_blank" class="contact-link">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        linktr.ee/hrishabh2028ece
+      </a>
+      <a href="https://www.linkedin.com/in/hrishabh-kumar" target="_blank" class="contact-link">
+        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span style="color:var(--cyan)">Hrishabh Kumar</span> · ECE Engineer · Ahmedabad, India · Built with HTML/CSS/JS
+</footer>
+
+<script>
+// ── CIRCUIT CANVAS BACKGROUND ──
+(function() {
+  const canvas = document.getElementById('circuit-canvas');
+  const ctx = canvas.getContext('2d');
+  let nodes = [], lines = [];
+
+  function resize() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    generate();
+  }
+
+  function generate() {
+    nodes = [];
+    lines = [];
+    const cols = Math.ceil(canvas.width / 80);
+    const rows = Math.ceil(canvas.height / 80);
+    for (let r = 0; r <= rows; r++) {
+      for (let c = 0; c <= cols; c++) {
+        if (Math.random() > 0.35) {
+          nodes.push({
+            x: c * 80 + (Math.random() - 0.5) * 28,
+            y: r * 80 + (Math.random() - 0.5) * 28,
+            dot: Math.random() > 0.6
+          });
+        }
+      }
+    }
+    // connect nearby nodes with L-shaped traces
+    for (let i = 0; i < nodes.length; i++) {
+      const a = nodes[i];
+      for (let j = i + 1; j < nodes.length; j++) {
+        const b = nodes[j];
+        const dx = Math.abs(b.x - a.x), dy = Math.abs(b.y - a.y);
+        if (dx < 110 && dy < 110 && Math.random() > 0.5) {
+          lines.push({ax: a.x, ay: a.y, bx: b.x, by: b.y, mid: Math.random() > 0.5});
+        }
+      }
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = '#00D4FF';
+    ctx.lineWidth = 0.8;
+    for (const l of lines) {
+      ctx.beginPath();
+      ctx.moveTo(l.ax, l.ay);
+      if (l.mid) {
+        ctx.lineTo(l.bx, l.ay);
+        ctx.lineTo(l.bx, l.by);
+      } else {
+        ctx.lineTo(l.ax, l.by);
+        ctx.lineTo(l.bx, l.by);
+      }
+      ctx.stroke();
+    }
+    ctx.fillStyle = '#00D4FF';
+    for (const n of nodes) {
+      if (n.dot) {
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+  }
+
+  resize();
+  draw();
+  window.addEventListener('resize', () => { resize(); draw(); });
+})();
+
+// ── TABS ──
+function switchTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
