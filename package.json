@@ -1,0 +1,14 @@
+{
+  "name": "hrishabh-portfolio",
+  "version": "1.0.0",
+  "description": "Grayscale single-page UI portfolio",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}
